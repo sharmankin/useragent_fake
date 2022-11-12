@@ -1,0 +1,14 @@
+[project]
+name = "useragent_fake"
+description = "Fake User-Agent"
+version = "0.1.0"
+
+dependencies = [
+    "requests",
+    "PySocks",
+    "bs4",
+    "tqdm"
+]
+
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
