@@ -57,7 +57,8 @@ class UserAgent:
     _yandex_browser = Browser('yandex-browser')
 
     def __call__(self, *args, **kwargs) -> Browser:
-        r = choice(
+
+        return choice(
             [
                 self._firefox,
                 self._chrome,
@@ -65,8 +66,7 @@ class UserAgent:
                 self._opera,
                 self._safari
             ]
-        )
-        return r()
+        )()
 
     @property
     def firefox(self) -> Browser:
