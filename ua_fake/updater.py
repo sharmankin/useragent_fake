@@ -73,7 +73,7 @@ def update_database():
         # return [*map(row_parse, data)]
         return [item for elem in data for item in row_parse(elem)]
 
-    agents = [elem for item in tqdm(bl, desc='Reading User-Agents entries source') for elem in get_content(item)]
+    agents = [elem for item in tqdm(bl, desc='Reading User-Agent entries source') for elem in get_content(item)]
 
     with connect() as cn:
         cr = cn.cursor()

@@ -1,7 +1,7 @@
 [project]
 name = "useragent_fake"
 description = "Fake User-Agent"
-version = "0.5.1"
+version = "0.5.2"
 
 dependencies = [
     "requests",
