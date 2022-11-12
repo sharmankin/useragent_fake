@@ -1,5 +1,5 @@
 import re
-from db import connect
+from .db import connect
 
 import requests
 from bs4 import BeautifulSoup as Soup
