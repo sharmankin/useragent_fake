@@ -80,3 +80,4 @@ _*.py
 !__main__.py
 !__init__.py
 *.cookies
+ua_fake/ua.sqlite
