@@ -52,13 +52,18 @@ class UserAgent:
     _firefox = Browser('firefox')
     _chrome = Browser('chrome')
     _edge = Browser('edge')
+    _opera = Browser('opera')
+    _safari = Browser('safari')
+    _yandex_browser = Browser('yandex-browser')
 
     def __call__(self, *args, **kwargs) -> Browser:
         r = choice(
             [
                 self._firefox,
                 self._chrome,
-                self._edge
+                self._edge,
+                self._opera,
+                self._safari
             ]
         )
         return r()
@@ -74,6 +79,18 @@ class UserAgent:
     @property
     def edge(self) -> Browser:
         return self._edge()
+
+    @property
+    def opera(self):
+        return self._opera()
+
+    @property
+    def safari(self):
+        return self._safari()
+
+    @property
+    def yandex_browser(self):
+        return self._yandex_browser()
 
     @staticmethod
     def update():
