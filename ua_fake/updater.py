@@ -96,13 +96,12 @@ with db.connect(file) as cn:
         """
     )
     cr = cn.cursor()
-    for agent in tqdm(agents):
-        cr.execute(
-            """
-            insert into useragent (app, os, user_agent) values (?, ?, ?) on conflict do nothing
-            """,
-            [*agent.values()]
-        )
+    cr.executemany(
+        """
+        insert into useragent (app, os, user_agent) values (:browser, :os, :useragent) on conflict do nothing
+        """,
+        agents
+    )
 
     cr.close()
     cn.commit()
