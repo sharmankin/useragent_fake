@@ -1,8 +1,10 @@
 # Useragent Fake 
 > Based on https://www.whatismybrowser.com latest User-Agent
-
+> 
+## Install
 `pip install git+https://github.com/sharmankin/useragent_fake.git`
 
+## Usage
 ### Update User-Agent database
 ```python
 from ua_fake import UserAgent
