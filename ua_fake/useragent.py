@@ -1,5 +1,25 @@
-from .db import connect
+from .db import connect, db_file
+from .updater import update_database
 from random import choice
+
+if not db_file.exists():
+    with connect() as cn:
+        cn.execute(
+            """
+            create table if not exists useragent
+                (
+                    id         INTEGER not null
+                        constraint useragent_pk
+                            primary key autoincrement,
+                    app        TEXT    not null,
+                    os         TEXT    not null,
+                    user_agent TEXT    not null,
+                    constraint useragent_unique_index
+                        unique (user_agent, app)
+                );
+            """
+        )
+        update_database()
 
 
 class Browser:
@@ -54,3 +74,7 @@ class UserAgent:
     @property
     def edge(self) -> Browser:
         return self._edge()
+
+    @staticmethod
+    def update():
+        update_database()
