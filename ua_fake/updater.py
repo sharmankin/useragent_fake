@@ -1,6 +1,5 @@
 import re
-import sqlite3 as db
-from pathlib import Path
+from db import connect
 
 import requests
 from bs4 import BeautifulSoup as Soup
@@ -77,24 +76,7 @@ def get_content(tagret_item: str):
 
 agents = [elem for item in tqdm(bl) for elem in get_content(item)]
 
-file = Path(__file__).parent.joinpath('ua.sqlite')
-
-with db.connect(file) as cn:
-    cn.execute(
-        """
-        create table if not exists useragent
-            (
-                id         INTEGER not null
-                    constraint useragent_pk
-                        primary key autoincrement,
-                app        TEXT    not null,
-                os         TEXT    not null,
-                user_agent TEXT    not null,
-                constraint useragent_unique_index
-                    unique (user_agent, app)
-            );
-        """
-    )
+with connect() as cn:
     cr = cn.cursor()
     cr.executemany(
         """
