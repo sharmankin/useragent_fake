@@ -1,3 +1,4 @@
 requests[stocks]
 bs4
 tqdm
+urllib3
