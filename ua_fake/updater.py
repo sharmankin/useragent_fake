@@ -78,9 +78,25 @@ def update_database():
     with connect() as cn:
         cr = cn.cursor()
         cr.executemany(
+            # """
+            # insert into useragent (app, os, user_agent) values (:browser, :os, :useragent) on conflict do nothing
+            # """
             """
-            insert into useragent (app, os, user_agent) values (:browser, :os, :useragent) on conflict do nothing
-            """,
+                with ex(id) as (select coalesce(c.id, b.id)
+                        from (select null as id) b
+                                 left join (select id
+                                            from useragent
+                                            where app = :browser
+                                              and user_agent = :useragent) c)
+        
+                    insert
+                    into useragent (app, os, user_agent)
+                    select :browser, :os, :useragent
+                    from ex
+                    where ex.id is null
+                    on conflict do nothing;
+            """
+            ,
             agents
         )
 
