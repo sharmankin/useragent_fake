@@ -1,11 +1,13 @@
-from bs4 import BeautifulSoup as Soup
+import re
+import sqlite3 as db
+from pathlib import Path
+
 import requests
+from bs4 import BeautifulSoup as Soup
+from bs4.element import Tag
 from requests.adapters import HTTPAdapter, Retry
 from tqdm import tqdm
 from urllib3.util import Timeout
-from bs4.element import Tag
-import re
-
 
 bl = [
     'firefox',
@@ -74,3 +76,33 @@ def get_content(tagret_item: str):
 
 
 agents = [elem for item in tqdm(bl) for elem in get_content(item)]
+
+file = Path(__file__).parent.joinpath('ua.sqlite')
+
+with db.connect(file) as cn:
+    cn.execute(
+        """
+        create table if not exists useragent
+            (
+                id         INTEGER not null
+                    constraint useragent_pk
+                        primary key autoincrement,
+                app        TEXT    not null,
+                os         TEXT    not null,
+                user_agent TEXT    not null,
+                constraint useragent_unique_index
+                    unique (user_agent, app)
+            );
+        """
+    )
+    cr = cn.cursor()
+    for agent in tqdm(agents):
+        cr.execute(
+            """
+            insert into useragent (app, os, user_agent) values (?, ?, ?) on conflict do nothing
+            """,
+            [*agent.values()]
+        )
+
+    cr.close()
+    cn.commit()
