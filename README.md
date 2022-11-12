@@ -11,7 +11,7 @@ from ua_fake import UserAgent
 
 agent = UserAgent()
 agent.update()
-# Reading User-Agents entries source: 100%|██████████| 12/12 [00:02<00:00,  4.17it/s]
+# Reading User-Agent entries source: 100%|██████████| 12/12 [00:02<00:00,  4.17it/s]
 ```
 ### Get random User-Agent
 ```python
