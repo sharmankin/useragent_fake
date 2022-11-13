@@ -31,7 +31,7 @@ class Browser:
     def __del__(self):
         self._cn.close()
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> str:
         cr = self._cn.cursor()
         cr.execute(
             """
@@ -56,7 +56,7 @@ class UserAgent:
     _safari = Browser('safari')
     _yandex_browser = Browser('yandex-browser')
 
-    def __call__(self, *args, **kwargs) -> Browser:
+    def __call__(self, *args, **kwargs) -> str:
 
         return choice(
             [
@@ -69,27 +69,27 @@ class UserAgent:
         )()
 
     @property
-    def firefox(self) -> Browser:
+    def firefox(self) -> str:
         return self._firefox()
 
     @property
-    def chrome(self) -> Browser:
+    def chrome(self) -> str:
         return self._chrome()
 
     @property
-    def edge(self) -> Browser:
+    def edge(self) -> str:
         return self._edge()
 
     @property
-    def opera(self):
+    def opera(self) -> str:
         return self._opera()
 
     @property
-    def safari(self):
+    def safari(self) -> str:
         return self._safari()
 
     @property
-    def yandex_browser(self):
+    def yandex_browser(self) -> str:
         return self._yandex_browser()
 
     @staticmethod
