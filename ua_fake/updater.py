@@ -38,9 +38,9 @@ def update_database():
         )
     )
 
-    def get_content(tagret_item: str):
+    def get_content(target_item: str):
         response = s.get(
-            f'https://www.whatismybrowser.com/guides/the-latest-user-agent/{tagret_item}',
+            f'https://www.whatismybrowser.com/guides/the-latest-user-agent/{target_item}',
             timeout=Timeout(connect=60, read=120, total=180)
         )
 
@@ -61,7 +61,7 @@ def update_database():
 
             for item in ua_items:
                 yield {
-                    'browser': tagret_item,
+                    'browser': target_item,
                     'os': os.removeprefix('on').strip(),
                     'useragent': item
                 }
