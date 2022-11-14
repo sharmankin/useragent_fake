@@ -59,8 +59,6 @@ def update_database():
 
             ua_items = [*u_agents_tag.stripped_strings]
 
-            # _, *p, useragent = row.stripped_strings
-            # os, *_ = p or ['Standart', '']
             for item in ua_items:
                 yield {
                     'browser': tagret_item,
@@ -68,7 +66,6 @@ def update_database():
                     'useragent': item
                 }
 
-        # return [*map(row_parse, data)]
         return [item for elem in data for item in row_parse(elem)]
 
     agents = [elem for item in tqdm(bl, desc='Reading User-Agent entries source') for elem in get_content(item)]
@@ -76,9 +73,6 @@ def update_database():
     with connect() as cn:
         cr = cn.cursor()
         cr.executemany(
-            # """
-            # insert into useragent (app, os, user_agent) values (:browser, :os, :useragent) on conflict do nothing
-            # """
             """
                 with ex(id) as (select coalesce(c.id, b.id)
                         from (select null as id) b
@@ -93,8 +87,7 @@ def update_database():
                     from ex
                     where ex.id is null
                     on conflict do nothing;
-            """
-            ,
+            """,
             agents
         )
 
