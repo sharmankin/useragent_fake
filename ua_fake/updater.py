@@ -26,8 +26,6 @@ def update_database():
 
     s = requests.Session()
 
-    'https://developers.whatismybrowser.com/useragents/explore/software_name/android-webview/'
-
     s.mount(
         'https://',
         HTTPAdapter(
