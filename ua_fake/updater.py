@@ -18,7 +18,7 @@ def update_database():
         'edge',
         'vivaldi',
         'yandex-browser',
-        'android',
+        # 'android',
         'windows',
         'ios',
         'macos'
